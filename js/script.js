@@ -2,9 +2,13 @@
 const personalInfo = document.querySelector(".overview");
 //GitHub username
 const username = "engle-sr";
+
 const repoList = document.querySelector(".repo-list");
 const allRepos = document.querySelector(".repos");
 const repoData = document.querySelector(".repo-data");
+const backToRepoButton = document.querySelector(".view-repos");
+const filterInput = document.querySelector(".filter-repos");
+
 
 //FETCH INFO FROM GIT PROFILE
 const gitProfile = async function () {
@@ -90,4 +94,25 @@ const displayRepoInfo = async function (repoInfo, languages) {
     
     repoData.append(div);
 };
+
+backToRepoButton.addEventListener("click", function () {
+    allRepos.classList.remove("hide");
+    repoData.classList.add("hide");
+    backToRepoButton.classList.add("hide");
+});
+
+filterInput.addEventListener("input", function (e) {
+    const searchText = e.target.value;
+    const repos = document.querySelector(".repo");
+    const searchLowerText = searchText.toLowerCase();
+
+    for (const repo of repos) {
+        const repoLowerText = repo.innerText.toLowerCase();
+        if (repoLowerText.includes(searchLowerText)) {
+            repo.classList.remove("hide");
+        } else {
+            repo.classList.add("hide");
+        }
+    }
+});
 
